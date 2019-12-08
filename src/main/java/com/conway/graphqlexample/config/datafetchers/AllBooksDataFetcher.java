@@ -1,4 +1,4 @@
-package com.conway.graphqlexample.config.dataFetchers;
+package com.conway.graphqlexample.config.datafetchers;
 
 import com.conway.graphqlexample.dao.BookRepository;
 import com.conway.graphqlexample.model.BookModel;

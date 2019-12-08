@@ -1,12 +1,13 @@
 package com.conway.graphqlexample.config;
 
+import com.conway.graphqlexample.config.datafetchers.AllBooksDataFetcher;
+import com.conway.graphqlexample.config.datafetchers.AllMoviesDataFetcher;
+import com.conway.graphqlexample.config.datafetchers.BookDataFetcher;
+import com.conway.graphqlexample.config.datafetchers.MovieDataFetcher;
 import com.conway.graphqlexample.dao.BookRepository;
 import com.conway.graphqlexample.dao.MovieRepository;
 import com.conway.graphqlexample.model.BookModel;
 import com.conway.graphqlexample.model.MovieModel;
-import com.conway.graphqlexample.config.dataFetchers.AllBooksDataFetcher;
-import com.conway.graphqlexample.config.dataFetchers.AllMoviesDataFetcher;
-import com.conway.graphqlexample.config.dataFetchers.BookDataFetcher;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -31,9 +32,10 @@ public class GraphQLConfig {
   private final MovieRepository movieRepository;
 
   private GraphQL graphQL;
+
   private final AllBooksDataFetcher allBooksDataFetcher;
   private final BookDataFetcher bookDataFetcher;
-
+  private final MovieDataFetcher movieDataFetcher;
   private final AllMoviesDataFetcher allMoviesDataFetcher;
 
   @Value("classpath:schema.graphql")
@@ -45,12 +47,14 @@ public class GraphQLConfig {
       AllBooksDataFetcher allBooksDataFetcher,
       BookDataFetcher bookDataFetcher,
       AllMoviesDataFetcher allMoviesDataFetcher,
-      MovieRepository movieRepository) {
+      MovieRepository movieRepository,
+      MovieDataFetcher movieDataFetcher) {
     this.bookRepository = bookRepository;
     this.allBooksDataFetcher = allBooksDataFetcher;
     this.bookDataFetcher = bookDataFetcher;
     this.allMoviesDataFetcher = allMoviesDataFetcher;
     this.movieRepository = movieRepository;
+    this.movieDataFetcher = movieDataFetcher;
   }
 
   // load schema at application start up
@@ -130,7 +134,8 @@ public class GraphQLConfig {
                 typeWiring
                     .dataFetcher("allBooks", allBooksDataFetcher)
                     .dataFetcher("book", bookDataFetcher)
-                    .dataFetcher("allMovies", allMoviesDataFetcher))
+                    .dataFetcher("allMovies", allMoviesDataFetcher)
+                    .dataFetcher("movie", movieDataFetcher))
         .build();
   }
 

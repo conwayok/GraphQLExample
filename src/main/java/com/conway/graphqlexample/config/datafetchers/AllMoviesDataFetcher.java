@@ -1,4 +1,4 @@
-package com.conway.graphqlexample.config.dataFetchers;
+package com.conway.graphqlexample.config.datafetchers;
 
 import com.conway.graphqlexample.dao.MovieRepository;
 import com.conway.graphqlexample.model.MovieModel;
